@@ -1,48 +1,34 @@
 'use client'
 
-import { useState } from 'react'
+import { Bell, Building2, ChevronDown, CircleDollarSign, ClipboardCheck, CreditCard, IndianRupee, LayoutDashboard, LockKeyhole, LogOut, MoreHorizontal, Settings, ShieldCheck, UserRound, Users, Wallet, Zap } from 'lucide-react'
+
+const handovers = [
+  ['Riya Kulkarni (Morning 06:00–14:00)', 'Drawer Cash: ₹21,800 • UPI: ₹30,250 • Exp: -₹1,200', 'Verify & Lock', 'pending'],
+  ['Aman Verma (Yesterday Evening)', 'Expected Cash: ₹14,500 • Handed Over: ₹14,000', 'Resolve Short', 'short'],
+  ['Riya Kulkarni (Yesterday Morning)', 'Cash ₹19,200 handed over', '✓ Settled', 'settled'],
+]
+const dues = [
+  ['Arjun Mehta', 'Quarterly Pro • Overdue by 3d', '₹2,400 Due', 'WhatsApp', 'amber'],
+  ['Rohit Singhania', 'Annual Elite • Installment Due', '₹6,000 Due', 'WhatsApp', 'red'],
+  ['Priya Sharma', 'Quarterly Pro • Expires Tomorrow', '₹4,500 Renewal', 'Remind', 'muted'],
+]
+const audits = [
+  ['08:50 AM', 'Riya Kulkarni', 'Recorded Cash Expense (Water Cans x6)', '-₹300 Cash', 'View Proof', 'red'],
+  ['08:15 AM', 'Riya Kulkarni', 'Applied Custom Discount on Annual Plan (Meera Iyer)', '-₹1,500 Off', 'Approve', 'amber'],
+  ['07:15 AM', 'Riya Kulkarni', 'Recorded Cash Expense (Floor Cleaner)', '-₹900 Cash', 'View Proof', 'red'],
+]
+
+function Metric({ label, value, sub, tone = 'text-white' }: { label: string; value: string; sub: string; tone?: string }) {
+  return <div className="rounded-2xl border border-white/[.07] bg-[#101214] p-5"><p className="text-[10px] font-medium uppercase tracking-[.14em] text-zinc-400">{label}</p><p className={`mt-3 text-2xl font-semibold tracking-tight ${tone}`}>{value}</p><p className="mt-2 text-xs text-zinc-400">{sub}</p></div>
+}
+
+function ActionButton({ children, tone = 'subtle' }: { children: React.ReactNode; tone?: 'primary' | 'danger' | 'subtle' }) {
+  const classes = tone === 'primary' ? 'bg-[#7c3aed] text-white hover:bg-violet-500' : tone === 'danger' ? 'border border-red-500/30 text-red-400 hover:bg-red-500/10' : 'border border-white/10 text-zinc-300 hover:bg-white/[.06]'
+  return <button className={`flex h-8 w-[110px] shrink-0 items-center justify-center whitespace-nowrap rounded-lg px-3 text-xs font-medium transition ${classes}`}>{children}</button>
+}
 
 export default function Page() {
-  const [role, setRole] = useState<'owner' | 'staff'>('owner')
-
-  return (
-    <main className="min-h-screen bg-[#090a0c] text-white selection:bg-violet-500/30">
-      <div className="grid min-h-screen lg:grid-cols-2">
-        <section className="relative hidden overflow-hidden bg-[#0a0b0e] lg:flex lg:flex-col lg:justify-between lg:p-12 xl:p-14">
-          <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_18%_18%,rgba(124,58,237,.12),transparent_38%),radial-gradient(circle_at_78%_82%,rgba(16,185,129,.07),transparent_34%)]" />
-          <div className="relative flex items-center gap-3">
-            <div className="flex size-9 items-center justify-center rounded-xl bg-[#7c3aed] text-sm font-semibold shadow-[0_0_24px_rgba(124,58,237,.28)]">K</div>
-            <span className="text-lg font-semibold tracking-tight">Kinetiq</span>
-          </div>
-          <div className="relative max-w-lg pb-4">
-            <p className="mb-5 text-[10px] font-medium uppercase tracking-[.22em] text-violet-300/70">Operations, elevated</p>
-            <h1 className="max-w-md text-4xl font-semibold leading-[1.08] tracking-[-.04em] text-white xl:text-5xl">The high-performance operating system for premium fitness spaces.</h1>
-            <p className="mt-6 max-w-sm text-sm leading-6 text-zinc-500">Run every member, payment, and shift from one precise command center.</p>
-          </div>
-          <p className="relative text-xs text-zinc-600">© 2024 Kinetiq Systems</p>
-        </section>
-
-        <section className="flex min-h-screen items-center justify-center px-6 py-12 sm:px-10">
-          <div className="w-full max-w-sm">
-            <div className="mb-8 flex items-center gap-3 lg:hidden"><div className="flex size-9 items-center justify-center rounded-xl bg-[#7c3aed] text-sm font-semibold">K</div><span className="text-lg font-semibold tracking-tight">Kinetiq</span></div>
-            <div className="mb-8 flex w-full rounded-full bg-white/[.03] p-1">
-              <button onClick={() => setRole('owner')} className={`flex-1 rounded-full py-2 text-sm font-medium transition ${role === 'owner' ? 'bg-white/[.1] text-white shadow-sm' : 'text-zinc-500 hover:text-zinc-300'}`}>Workspace Owner</button>
-              <button onClick={() => setRole('staff')} className={`flex-1 rounded-full py-2 text-sm font-medium transition ${role === 'staff' ? 'bg-white/[.1] text-white shadow-sm' : 'text-zinc-500 hover:text-zinc-300'}`}>Staff Terminal</button>
-            </div>
-            <div>
-              <h2 className="mb-1 text-2xl font-semibold tracking-tight text-white">Welcome back</h2>
-              <p className="mb-6 text-sm text-zinc-500">Enter your credentials to access your workspace.</p>
-              <form onSubmit={(event) => event.preventDefault()} className="flex flex-col gap-4">
-                <label className="flex flex-col gap-2 text-xs font-medium text-zinc-400">Email<input type="email" placeholder="you@yourgym.com" className="h-10 rounded-xl border border-white/[.15] bg-white/[.04] px-3 text-sm text-white outline-none transition hover:border-white/[.25] placeholder:text-zinc-600 focus:border-[#7c3aed] focus:ring-1 focus:ring-[#7c3aed]" /></label>
-                <label className="flex flex-col gap-2 text-xs font-medium text-zinc-400">Password<input type="password" placeholder="Enter your password" className="h-10 rounded-xl border border-white/[.15] bg-white/[.04] px-3 text-sm text-white outline-none transition hover:border-white/[.25] placeholder:text-zinc-600 focus:border-[#7c3aed] focus:ring-1 focus:ring-[#7c3aed]" /></label>
-                <div className="-mt-1 flex justify-end"><button type="button" className="text-xs text-zinc-400 transition hover:text-white">Forgot password?</button></div>
-                <button type="submit" className="mt-1 h-10 rounded-xl bg-[#7c3aed] text-sm font-medium text-white transition hover:bg-[#6d28d9]">Sign in to Workspace</button>
-              </form>
-              <p className="mt-6 text-center text-xs text-zinc-500">Don&apos;t have an account? <button className="text-zinc-300 transition hover:text-white">Request Access</button></p>
-            </div>
-          </div>
-        </section>
-      </div>
-    </main>
-  )
+  return <main className="min-h-screen bg-[#090a0c] text-white selection:bg-violet-500/30"><div className="flex min-h-screen">
+    <aside className="hidden w-64 shrink-0 flex-col border-r border-white/[.07] bg-[#0b0c0e] p-4 lg:flex"><div className="flex items-center gap-3 px-2 py-2"><div className="flex size-9 items-center justify-center rounded-xl bg-[#7c3aed] text-sm font-bold shadow-[0_0_24px_rgba(124,58,237,.25)]">K</div><div><p className="text-sm font-semibold tracking-tight">Kinetiq</p><p className="text-[10px] text-zinc-400">Owner Console</p></div><span className="ml-auto rounded-full bg-emerald-400/10 px-2 py-1 text-[9px] font-medium text-emerald-300">Admin</span></div><p className="mb-2 mt-9 px-2 text-[10px] font-medium uppercase tracking-[.16em] text-zinc-500">Management</p><nav className="flex flex-col gap-1"><a className="flex items-center gap-3 rounded-xl border border-[#7c3aed]/30 bg-[#7c3aed]/15 px-3 py-2.5 text-sm text-white"><LayoutDashboard size={16} />Command Center</a><a className="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm text-zinc-400 hover:bg-white/[.04] hover:text-white"><CircleDollarSign size={16} />Financials &amp; P&amp;L</a><a className="flex items-center justify-between rounded-xl px-3 py-2.5 text-sm text-zinc-400 hover:bg-white/[.04] hover:text-white"><span className="flex items-center gap-3"><Users size={16} />Members (God Mode)</span><span className="text-[10px] text-zinc-500">1,284</span></a><a className="flex items-center justify-between rounded-xl px-3 py-2.5 text-sm text-zinc-400 hover:bg-white/[.04] hover:text-white"><span className="flex items-center gap-3"><ClipboardCheck size={16} />Staff &amp; Shifts</span><span className="rounded-full bg-amber-400/10 px-2 py-0.5 text-[10px] text-amber-300">2 Pending</span></a><a className="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm text-zinc-400 hover:bg-white/[.04] hover:text-white"><Settings size={16} />Gym Settings</a></nav><div className="mt-auto rounded-2xl border border-white/[.07] bg-[#101214] p-3"><div className="flex items-center gap-3"><div className="flex size-9 items-center justify-center rounded-full bg-violet-400/15 text-xs font-semibold text-violet-200">VR</div><div className="min-w-0"><p className="truncate text-xs font-medium text-white">Vikram Rathore</p><p className="truncate text-[10px] text-zinc-400">Gym Owner • All Branches</p></div><MoreHorizontal size={15} className="ml-auto text-zinc-500" /></div><button className="mt-3 flex h-9 w-full items-center justify-center gap-2 rounded-xl border border-white/10 text-xs text-zinc-300 transition hover:bg-white/5"><LogOut size={13} />⇄ Switch to Reception POS</button></div></aside>
+    <section className="min-w-0 flex-1"><header className="flex flex-wrap items-center justify-between gap-4 border-b border-white/[.07] px-5 py-5 sm:px-8"><div><p className="text-lg font-semibold tracking-tight">Owner Command Center</p><p className="mt-1 text-xs text-zinc-400">Tuesday, 18 June • Live Branch Audit</p></div><div className="flex items-center gap-2"><button className="flex h-9 items-center gap-2 rounded-xl border border-white/10 bg-white/[.03] px-3 text-xs text-zinc-300">Today <ChevronDown size={13} /></button><button className="hidden h-9 items-center rounded-xl border border-white/10 bg-white/[.06] px-4 text-xs text-white transition hover:bg-white/[.1] sm:flex">+ Add Staff / Plan</button><button aria-label="Notifications" className="relative flex size-9 items-center justify-center rounded-xl border border-white/10 text-zinc-400 hover:bg-white/[.06]"><Bell size={16} /><span className="absolute right-2 top-2 size-1.5 rounded-full bg-violet-400" /></button></div></header><div className="p-5 sm:p-8"><div className="mb-6 grid gap-4 sm:grid-cols-2 xl:grid-cols-4"><Metric label="Today's total collection" value="₹52,050" sub="₹21,800 Cash • ₹30,250 UPI" /><Metric label="June net revenue (MTD)" value="₹4,82,400" sub="After ₹18,500 logged expenses" tone="text-emerald-400" /><Metric label="Pending dues on floor" value="₹38,600" sub="Across 14 overdue members" tone="text-amber-300" /><Metric label="Expiring in 7 days" value="22 Members" sub="₹66,000 renewal value at risk" tone="text-red-400" /></div><div className="mb-6 grid gap-5 xl:grid-cols-2"><section className="rounded-2xl border border-white/[.07] bg-[#101214] p-5"><div className="flex items-center justify-between gap-3"><div><h2 className="text-sm font-semibold">Shift Handovers</h2><p className="mt-1 text-xs text-zinc-400">Cash verification and anti-theft engine</p></div><span className="rounded-full bg-amber-400/10 px-2.5 py-1 text-[10px] text-amber-300">1 Pending Approval</span></div><div className="mt-5 divide-y divide-white/[.05]">{handovers.map(([title, sub, action, kind]) => <div key={title} className="flex items-center gap-4 py-4 first:pt-0 last:pb-0"><div className="min-w-0 flex-1"><p className="truncate text-xs font-medium text-white">{title}</p><p className="mt-1 truncate text-[11px] text-zinc-400">{sub}</p></div>{kind === 'settled' ? <span className="shrink-0 text-xs font-medium text-emerald-400">{action}</span> : <ActionButton tone={kind === 'short' ? 'danger' : 'primary'}>{action}</ActionButton>}</div>)}</div></section><section className="rounded-2xl border border-white/[.07] bg-[#101214] p-5"><div className="flex items-center justify-between gap-3"><div><h2 className="text-sm font-semibold">High-Priority Dues</h2><p className="mt-1 text-xs text-zinc-400">Immediate revenue recovery</p></div><button className="whitespace-nowrap text-xs text-violet-300 hover:text-white">Send Bulk WhatsApp (14)</button></div><div className="mt-5 divide-y divide-white/[.05]">{dues.map(([name, meta, amount, action, tone]) => <div key={name} className="flex items-center gap-4 py-4 first:pt-0 last:pb-0"><div className="min-w-0 flex-1"><p className="text-xs font-medium text-white">{name}</p><p className="mt-1 truncate text-[11px] text-zinc-400">{meta}</p></div><span className={`shrink-0 text-xs font-medium ${tone === 'amber' ? 'text-amber-300' : tone === 'red' ? 'text-red-400' : 'text-zinc-300'}`}>{amount}</span><ActionButton>{action}</ActionButton></div>)}</div></section></div><section className="rounded-2xl border border-white/[.07] bg-[#101214] p-5"><div className="flex flex-wrap items-center justify-between gap-3"><div><h2 className="text-sm font-semibold">Sensitive Desk Actions Today</h2><p className="mt-1 text-xs text-zinc-400">Live Audit &amp; Risk Log • discounts, expenses, and manual overrides</p></div><ShieldCheck size={17} className="text-violet-300" /></div><div className="mt-5 overflow-x-auto"><div className="min-w-[760px]"><div className="grid grid-cols-[90px_150px_minmax(260px,1fr)_120px_110px] gap-3 border-b border-white/[.06] px-3 pb-3 text-[10px] uppercase tracking-[.12em] text-zinc-500"><span>Time</span><span>Staff</span><span>Action performed</span><span>Impact</span><span className="text-right">Audit</span></div><div className="divide-y divide-white/[.05]">{audits.map(([time, staff, action, impact, audit, tone]) => <div key={time} className="grid grid-cols-[90px_150px_minmax(260px,1fr)_120px_110px] items-center gap-3 px-3 py-4"><span className="font-mono text-[11px] text-zinc-400">{time}</span><span className="text-xs text-zinc-300">{staff}</span><span className="text-xs text-zinc-300">{action}</span><span className={`text-xs font-medium ${tone === 'red' ? 'text-red-400' : 'text-amber-300'}`}>{impact}</span><div className="flex justify-end"><ActionButton>{audit}</ActionButton></div></div>)}</div></div></div></section></div></section></div></main>
 }
