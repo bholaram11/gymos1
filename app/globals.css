@@ -158,7 +158,12 @@
 .metric-card svg { @apply size-4; }
 .metrics-row { @apply flex gap-3 overflow-x-auto pb-1 no-scrollbar md:grid md:grid-cols-3; }
 .field { @apply rounded-xl border border-white/10 bg-white/[.04] px-3 py-3 text-sm text-white outline-none placeholder:text-[#6f727c] focus:border-violet-400/50; }
-.mobile-tab { @apply flex flex-1 flex-col items-center gap-1 rounded-xl py-2 text-[10px] text-[#777a84]; }
+  .mobile-tab { @apply flex flex-1 flex-col items-center gap-1 rounded-xl py-2 text-[10px] text-[#777a84]; }
+  .nav-item { @apply flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm text-zinc-400; }
+  .nav-item svg { @apply size-4; }
+  .nav-item span { @apply ml-auto text-xs text-zinc-500; }
+  .nav-item.active { @apply border border-[#7c3aed]/30 bg-[#7c3aed]/15 text-white; }
+  .nav-item.active span { @apply text-zinc-300; }
 .mobile-tab svg { @apply size-4; }
 .mobile-tab.active { @apply bg-violet-500/10 text-violet-300; }
 .scan-line { @apply absolute left-0 right-0 top-1/2 h-px bg-violet-300 shadow-[0_0_12px_#a78bfa]; animation: scan 2s ease-in-out infinite; }
